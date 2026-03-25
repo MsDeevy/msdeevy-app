@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MsDeevy — AI-Powered Apps for a Better You</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --warm-cream: #FFF8F0;
+    --soft-peach: #FFE8D6;
+    --blush: #FFCDB2;
+    --coral: #FF8A65;
+    --deep-coral: #E8553A;
+    --plum: #4A2040;
+    --soft-plum: #6B3A5D;
+    --text-dark: #2D1B2E;
+    --text-mid: #5C3D5E;
+    --text-light: #8A6A8C;
+    --white: #FFFFFF;
+    --card-shadow: 0 8px 32px rgba(74, 32, 64, 0.08);
+    --card-hover-shadow: 0 16px 48px rgba(74, 32, 64, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: var(--warm-cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(255,138,101,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float-blob 12s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(107,58,93,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float-blob 15s ease-in-out infinite reverse;
+  }
+
+  @keyframes float-blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.95); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+  }
+
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    animation: fade-up 0.8s ease-out both;
+  }
+
+  .logo-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--coral), var(--deep-coral));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: white;
+    box-shadow: 0 4px 16px rgba(232,85,58,0.3);
+    transform: rotate(-3deg);
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--plum);
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.2rem);
+    line-height: 1.15;
+    color: var(--plum);
+    margin-bottom: 1.2rem;
+    animation: fade-up 0.8s 0.15s ease-out both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--deep-coral);
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    font-weight: 500;
+    animation: fade-up 0.8s 0.3s ease-out both;
+  }
+
+  .ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, var(--plum), var(--soft-plum));
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    animation: fade-up 0.8s 0.45s ease-out both;
+  }
+
+  .ai-badge .sparkle {
+    font-size: 1rem;
+    animation: sparkle-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes sparkle-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: fade-up 0.8s 0.6s ease-out both;
+  }
+
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--text-light);
+    border-bottom: 2px solid var(--text-light);
+    transform: rotate(45deg);
+    animation: bounce-down 1.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce-down {
+    0%, 100% { transform: rotate(45deg) translate(0,0); opacity: 0.5; }
+    50% { transform: rotate(45deg) translate(4px,4px); opacity: 1; }
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ APPS SECTION ============ */
+  .apps-section {
+    padding: 4rem 2rem 6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--plum);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-header p {
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  .app-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .app-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 2.2rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .app-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--card-hover-shadow);
+  }
+
+  .app-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .app-card.daybreak::before {
+    background: linear-gradient(90deg, #FF9A56, #FFD166);
+  }
+
+  .app-card.sparkle::before {
+    background: linear-gradient(90deg, #A78BFA, #F0ABFC);
+  }
+
+  .app-card.healthhunter::before {
+    background: linear-gradient(90deg, #34D399, #6EE7B7);
+  }
+
+  .app-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .daybreak .app-icon {
+    background: linear-gradient(135deg, #FF9A56, #FFD166);
+  }
+
+  .sparkle .app-icon {
+    background: linear-gradient(135deg, #A78BFA, #F0ABFC);
+  }
+
+  .healthhunter .app-icon {
+    background: linear-gradient(135deg, #34D399, #6EE7B7);
+  }
+
+  .app-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--plum);
+    margin-bottom: 0.3rem;
+  }
+
+  .app-tagline {
+    font-size: 0.85rem;
+    color: var(--coral);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.8rem;
+  }
+
+  .app-desc {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 1.4rem;
+    font-weight: 500;
+  }
+
+  .app-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-tag {
+    background: var(--warm-cream);
+    color: var(--text-mid);
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .feature-tag.ai-tag {
+    background: linear-gradient(135deg, var(--plum), var(--soft-plum));
+    color: white;
+  }
+
+  .app-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+  }
+
+  .status-live {
+    background: #ECFDF5;
+    color: #059669;
+  }
+
+  .status-live .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #059669;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .status-coming {
+    background: var(--soft-peach);
+    color: var(--deep-coral);
+  }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .waitlist-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.3rem;
+    border-radius: 100px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .daybreak .waitlist-btn {
+    background: linear-gradient(135deg, #FF9A56, #FFD166);
+    color: #7C3A10;
+  }
+
+  .sparkle .waitlist-btn {
+    background: linear-gradient(135deg, #A78BFA, #F0ABFC);
+    color: #4C1D95;
+  }
+
+  .healthhunter .waitlist-btn {
+    background: linear-gradient(135deg, #34D399, #6EE7B7);
+    color: #064E3B;
+  }
+
+  .waitlist-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ============ ABOUT SECTION ============ */
+  .about-section {
+    background: linear-gradient(180deg, transparent, rgba(74,32,64,0.03));
+    padding: 4rem 2rem 5rem;
+  }
+
+  .about-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .about-inner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    color: var(--plum);
+    margin-bottom: 1rem;
+  }
+
+  .about-inner p {
+    color: var(--text-mid);
+    font-size: 1rem;
+    line-height: 1.75;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .about-inner p:last-of-type {
+    margin-bottom: 2rem;
+  }
+
+  .connect-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .connect-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .connect-link.primary {
+    background: linear-gradient(135deg, var(--coral), var(--deep-coral));
+    color: white;
+    box-shadow: 0 4px 16px rgba(232,85,58,0.25);
+  }
+
+  .connect-link.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(232,85,58,0.35);
+  }
+
+  .connect-link.secondary {
+    background: var(--white);
+    color: var(--plum);
+    border: 2px solid var(--blush);
+  }
+
+  .connect-link.secondary:hover {
+    border-color: var(--coral);
+    transform: translateY(-2px);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  footer .heart {
+    color: var(--deep-coral);
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 640px) {
+    .app-cards {
+      grid-template-columns: 1fr;
+    }
+    .hero {
+      padding: 2rem 1.5rem;
+    }
+    .apps-section {
+      padding: 3rem 1.5rem 4rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="logo-mark">
+      <div class="logo-icon">✦</div>
+      <span class="logo-text">MsDeevy</span>
+    </div>
+    <h1>Small apps,<br><em>big shifts.</em></h1>
+    <p class="hero-sub">
+      AI-powered micro-apps that help you build better habits —
+      one gentle nudge at a time.
+    </p>
+    <div class="ai-badge">
+      <span class="sparkle">✨</span>
+      AI-Integrated
+    </div>
+  </div>
+  <div class="scroll-hint">
+    Meet the apps
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section class="apps-section">
+  <div class="section-header">
+    <h2>The Collection</h2>
+    <p>Three apps. Three habits. One philosophy: progress over perfection.</p>
+  </div>
+
+  <div class="app-cards">
+
+    <!-- DAYBREAK -->
+    <div class="app-card daybreak">
+      <div class="app-icon">🌅</div>
+      <h3>Daybreak</h3>
+      <div class="app-tagline">Your sobriety companion</div>
+      <p class="app-desc">
+        A warm, judgement-free AI coach that walks beside you on your sobriety journey. Track your days, reflect on triggers, and celebrate every single sunrise.
+      </p>
+      <div class="app-features">
+        <span class="feature-tag ai-tag">✨ AI Coach</span>
+        <span class="feature-tag">Daily Check-ins</span>
+        <span class="feature-tag">Mood Tracking</span>
+        <span class="feature-tag">Milestones</span>
+      </div>
+      <div class="card-actions">
+        <div class="app-status status-live">
+          <span class="dot"></span> Prototype Live
+        </div>
+        <a href="mailto:info@msdeevy.app?subject=Waitlist%20Daybreak&body=Hi!%20I'd%20love%20to%20try%20Daybreak%20when%20it's%20ready.%20Put%20me%20on%20the%20list!" class="waitlist-btn">🔔 Join Waitlist</a>
+      </div>
+    </div>
+    <div class="app-card sparkle">
+      <div class="app-icon">✨</div>
+      <h3>Sparkle</h3>
+      <div class="app-tagline">Room cleaning, gamified</div>
+      <p class="app-desc">
+        Snap a photo, get an AI-powered room score, and unlock rewards as your space transforms. Designed for teens — loved by anyone who needs a little push.
+      </p>
+      <div class="app-features">
+        <span class="feature-tag ai-tag">✨ AI Vision</span>
+        <span class="feature-tag">Photo Scoring</span>
+        <span class="feature-tag">XP & Rewards</span>
+        <span class="feature-tag">Challenges</span>
+      </div>
+      <div class="card-actions">
+        <div class="app-status status-live">
+          <span class="dot"></span> Prototype Live
+        </div>
+        <a href="mailto:info@msdeevy.app?subject=Waitlist%20Sparkle&body=Hi!%20I'd%20love%20to%20try%20Sparkle%20when%20it's%20ready.%20Put%20me%20on%20the%20list!" class="waitlist-btn">🔔 Join Waitlist</a>
+      </div>
+    </div>
+    <div class="app-card healthhunter">
+      <div class="app-icon">🎯</div>
+      <h3>HealthHunter</h3>
+      <div class="app-tagline">Gamified food diary</div>
+      <p class="app-desc">
+        Photograph your meals and let AI do the tracking. Earn XP, collect badges, build streaks — and actually enjoy logging what you eat for once.
+      </p>
+      <div class="app-features">
+        <span class="feature-tag ai-tag">✨ AI Food Recognition</span>
+        <span class="feature-tag">XP & Badges</span>
+        <span class="feature-tag">Streaks</span>
+        <span class="feature-tag">Weekly Overview</span>
+      </div>
+      <div class="card-actions">
+        <div class="app-status status-live">
+          <span class="dot"></span> Prototype Live
+        </div>
+        <a href="mailto:info@msdeevy.app?subject=Waitlist%20HealthHunter&body=Hi!%20I'd%20love%20to%20try%20HealthHunter%20when%20it's%20ready.%20Put%20me%20on%20the%20list!" class="waitlist-btn">🔔 Join Waitlist</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="about-inner">
+    <h2>Built by MsDeevy</h2>
+    <p>
+      I'm V — a consultant by day, builder by nature. I make small, 
+      AI-powered tools that solve real problems I care about. No venture capital. 
+      No growth hacks. Just apps that help people feel a little better, 
+      one day at a time.
+    </p>
+    <p>
+      Each app in this collection uses AI not as a gimmick, but as a 
+      genuine companion — coaching, recognizing, encouraging. Because 
+      technology should feel warm.
+    </p>
+    <div class="connect-links">
+      <a href="mailto:info@msdeevy.app" class="connect-link primary">✉ Say Hello</a>
+      <a href="https://pawsitivesteps.be" class="connect-link secondary">🐾 Pawsitive Steps</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 MsDeevy · Made with <span class="heart">♥</span> and a lot of coffee</p>
+</footer>
+
+</body>
+</html>
